@@ -1,8 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Phone, Mail, MapPin, Facebook, Instagram } from 'lucide-react';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
+import L from 'leaflet';
 import './Contact.css';
 
 const Contact = () => {
+    // Fix Leaflet default marker icon issue
+    useEffect(() => {
+        delete L.Icon.Default.prototype._getIconUrl;
+        L.Icon.Default.mergeOptions({
+            iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-2x.png',
+            iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+        });
+    }, []);
+
+    const workshopPosition = [44.296872, 19.068228];
+
     const handleSubmit = (e) => {
         e.preventDefault();
         alert('Hvala na upitu! Kontaktiraćemo vas uskoro.');
@@ -47,14 +62,30 @@ const Contact = () => {
                                 </div>
                                 <div>
                                     <h4>Adresa</h4>
-                                    <p>Karakaj bb, 75400 Zvornik</p>
+                                    <p>Zvornik, Raševo</p>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="social-links">
-                            <a href="#" className="social-link"><Facebook size={24} /></a>
-                            <a href="#" className="social-link"><Instagram size={24} /></a>
+                        {/* Map */}
+                        <div className="map-container">
+                            <MapContainer
+                                center={workshopPosition}
+                                zoom={15}
+                                scrollWheelZoom={false}
+                                style={{ height: '100%', width: '100%', borderRadius: '1rem' }}
+                            >
+                                <TileLayer
+                                    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                                    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                                />
+                                <Marker position={workshopPosition}>
+                                    <Popup>
+                                        <strong>Al-prom Radionica</strong><br />
+                                        Zvornik,Raševo
+                                    </Popup>
+                                </Marker>
+                            </MapContainer>
                         </div>
                     </div>
 
@@ -85,6 +116,11 @@ const Contact = () => {
 
                             <button type="submit" className="btn-submit">Pošalji Poruku</button>
                         </form>
+
+                        <div className="social-links">
+                            <a href="#" className="social-link"><Facebook size={24} /></a>
+                            <a href="#" className="social-link"><Instagram size={24} /></a>
+                        </div>
                     </div>
                 </div>
 

@@ -9,6 +9,7 @@
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     margin-bottom: 4rem;
+    align-items: start;
 }
 
 .contact-info h2 {
@@ -84,12 +85,39 @@
     transform: translateY(-3px);
 }
 
+/* Map Styles */
+.map-container {
+    width: 100%;
+    height: 300px;
+    margin-top: 2rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: var(--shadow-md);
+}
+
 /* Form Styles */
 .contact-form-wrapper {
     background-color: white;
     padding: 2.5rem;
     border-radius: 1.5rem;
     color: var(--text-main);
+}
+
+.contact-form-wrapper .social-links {
+    margin-top: 2rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid #e2e8f0;
+    justify-content: center;
+}
+
+.contact-form-wrapper .social-link {
+    background-color: #f8fafc;
+    color: var(--primary);
+}
+
+.contact-form-wrapper .social-link:hover {
+    background-color: var(--primary);
+    color: white;
 }
 
 .contact-form h3 {
@@ -141,6 +169,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
+    margin-bottom: 0;
 }
 
 .btn-submit:hover {
@@ -167,6 +196,10 @@
 
     .contact-info h2 {
         font-size: 2.25rem;
+    }
+
+    .map-container {
+        height: 280px;
     }
 }
 
@@ -205,6 +238,10 @@
 
     .social-links {
         justify-content: center;
+    }
+
+    .map-container {
+        height: 250px;
     }
 
     .contact-form h3 {
@@ -269,6 +306,11 @@
         height: 45px;
     }
 
+    .map-container {
+        height: 220px;
+        margin-top: 1.5rem;
+    }
+
     .contact-form-wrapper {
         padding: 2rem 1.5rem;
     }
@@ -331,6 +373,10 @@
     .social-link {
         width: 40px;
         height: 40px;
+    }
+
+    .map-container {
+        height: 200px;
     }
 
     .contact-form-wrapper {
