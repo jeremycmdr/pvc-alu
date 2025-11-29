@@ -61,7 +61,7 @@
 .hero-text p {
     font-size: 1.25rem;
     margin-bottom: 2.5rem;
-    color: #e2e8f0;
+    color: white;
     line-height: 1.6;
 }
 
@@ -136,6 +136,10 @@
         min-height: 500px;
         height: auto;
         padding: 8rem 0 4rem;
+    }
+
+    .hero-text {
+        max-width: 100%;
     }
 
     .hero-text h1 {
