@@ -391,6 +391,10 @@ html {
 }
 
 @media (max-width: 768px) {
+    .header {
+        padding: 1.5rem 1rem;
+    }
+
     .hamburger {
         display: flex;
     }
@@ -471,6 +475,10 @@ html {
         margin-bottom: 2rem;
     }
 
+    .hero-text {
+        max-width: 100%;
+    }
+
     .hero-buttons {
         flex-direction: column;
         align-items: flex-start;
@@ -545,10 +553,6 @@ html {
 }
 
 @media (max-width: 480px) {
-    .header {
-        padding: 1rem 0;
-    }
-
     .container {
         padding: 0 1rem;
     }
@@ -621,10 +625,6 @@ html {
 }
 
 @media (max-width: 320px) {
-    .logo {
-        font-size: 1.4rem;
-    }
-
     .nav {
         width: 220px;
     }
