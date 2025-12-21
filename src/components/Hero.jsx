@@ -1,4 +1,4 @@
-import React from 'react';
+import { Link } from 'react-router-dom';
 import './Hero.css';
 import heroBg from '../assets/hero-bg.png';
 
@@ -18,8 +18,15 @@ const Hero = () => {
                         Izrađujemo prozore i vrata po meri koji štede vaš novac i ulepšavaju prostor.
                     </p>
                     <div className="hero-buttons">
-                        <a href="#kontakt" className="btn btn-primary">Zatražite Ponudu</a>
-                        <a href="#galerija" className="btn btn-outline">Pogledajte Radove</a>
+                        <button
+                            onClick={() => document.getElementById('kontakt')?.scrollIntoView({ behavior: 'smooth' })}
+                            className="btn btn-primary"
+                        >
+                            Zatražite Ponudu
+                        </button>
+                        <Link to="/modeli" className="btn btn-outline">
+                            Pogledajte Modele
+                        </Link>
                     </div>
                 </div>
             </div>

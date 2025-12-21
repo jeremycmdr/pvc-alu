@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import './Header.css';
 
 const Header = () => {
     const [scrolled, setScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const location = useLocation();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -21,12 +23,14 @@ const Header = () => {
         setMobileMenuOpen(false);
     };
 
+    const isHomePage = location.pathname === '/';
+
     return (
         <header className={`header ${scrolled ? 'scrolled' : ''}`}>
             <div className="container header-content">
-                <div className="logo">
+                <Link to="/" className="logo" onClick={closeMobileMenu}>
                     Al-<span>prom</span>
-                </div>
+                </Link>
 
                 <button className="hamburger" onClick={toggleMobileMenu} aria-label="Toggle menu">
                     <span className={mobileMenuOpen ? 'open' : ''}></span>
@@ -35,10 +39,9 @@ const Header = () => {
                 </button>
 
                 <nav className={`nav ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-                    <a href="#home" className="nav-link" onClick={closeMobileMenu}>Početna</a>
-                    <a href="#ponuda" className="nav-link" onClick={closeMobileMenu}>Ponuda</a>
-                    <a href="#galerija" className="nav-link" onClick={closeMobileMenu}>Galerija</a>
-                    <a href="#kontakt" className="nav-link btn-contact" onClick={closeMobileMenu}>Kontakt</a>
+                    <Link to="/" className="nav-link" onClick={closeMobileMenu}>Početna</Link>
+                    <Link to="/modeli" className="nav-link" onClick={closeMobileMenu}>Modeli</Link>
+                    <a href={isHomePage ? "#kontakt" : "/#kontakt"} className="nav-link btn-contact" onClick={closeMobileMenu}>Kontakt</a>
                 </nav>
             </div>
         </header>

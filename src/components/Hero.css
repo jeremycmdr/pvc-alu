@@ -71,13 +71,20 @@
 }
 
 .btn {
-    display: inline-block;
-    padding: 1rem 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2.5rem;
     border-radius: 50px;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 1.05rem;
+    line-height: 1;
     text-decoration: none;
     transition: all 0.3s ease;
     font-family: 'Outfit', sans-serif;
+    cursor: pointer;
+    border: 2px solid transparent;
+    white-space: nowrap;
 }
 
 .btn-primary {
@@ -97,7 +104,7 @@
 .btn-outline {
     background-color: transparent;
     color: white;
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(5px);
 }
 

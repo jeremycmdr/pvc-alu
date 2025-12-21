@@ -5,8 +5,12 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
 import './Contact.css';
+import { useSearchParams } from 'react-router-dom';
 
 const Contact = () => {
+    const [searchParams] = useSearchParams();
+    const [message, setMessage] = React.useState('');
+
     // Fix Leaflet default marker icon issue
     useEffect(() => {
         delete L.Icon.Default.prototype._getIconUrl;
@@ -16,6 +20,18 @@ const Contact = () => {
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
         });
     }, []);
+
+    useEffect(() => {
+        const modelName = searchParams.get('model');
+        if (modelName) {
+            setMessage(`Zanima me ponuda za model: ${modelName}`);
+            // Scroll to contact section if model is present
+            const contactSection = document.getElementById('kontakt');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    }, [searchParams]);
 
     const workshopPosition = [44.296872, 19.068228];
 
@@ -132,7 +148,15 @@ const Contact = () => {
 
                             <div className="form-group">
                                 <label htmlFor="message">Poruka</label>
-                                <textarea name="message" id="message" rows="4" placeholder="Zanima me ponuda za..." required></textarea>
+                                <textarea
+                                    name="message"
+                                    id="message"
+                                    rows="4"
+                                    placeholder="Zanima me ponuda za..."
+                                    required
+                                    value={message}
+                                    onChange={(e) => setMessage(e.target.value)}
+                                ></textarea>
                             </div>
 
                             <button type="submit" className="btn-submit" disabled={isSubmitting}>
