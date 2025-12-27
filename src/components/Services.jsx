@@ -22,11 +22,11 @@ const servicesData = [
     },
     {
         id: 2,
-        title: 'ALU Stolarija',
-        description: 'Moderan dizajn, izuzetna čvrstoća i trajnost. Savršen izbor za poslovne prostore i moderne kuće.',
+        title: 'Klizni sistemi',
+        description: 'Maksimalna funkcionalnost i estetska elegancija. Idealni za terase i moderne staklene zidove.',
         icon: <DoorOpen size={40} />,
         color: 'slate',
-        link: '/alu-stolarija'
+        link: '/klizni-sistemi'
     },
     {
         id: 3,
@@ -65,7 +65,7 @@ const Services = () => {
                                 <h3>{service.title}</h3>
                                 <p>{service.description}</p>
                                 <span className="service-link">
-                                    {service.link ? 'Pogledaj modele' : 'Saznajte više'} &rarr;
+                                    {service.title === 'Modeli' ? 'Pogledaj modele' : 'Saznajte više'} &rarr;
                                 </span>
                             </>
                         );

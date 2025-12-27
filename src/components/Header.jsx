@@ -25,10 +25,28 @@ const Header = () => {
 
     const isHomePage = location.pathname === '/';
 
+    const handleHomeClick = () => {
+        closeMobileMenu();
+        if (location.pathname === '/') {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    };
+
+    const handleContactClick = (e) => {
+        closeMobileMenu();
+        if (isHomePage) {
+            e.preventDefault();
+            const contactSection = document.getElementById('kontakt');
+            if (contactSection) {
+                contactSection.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    };
+
     return (
         <header className={`header ${scrolled ? 'scrolled' : ''}`}>
             <div className="container header-content">
-                <Link to="/" className="logo" onClick={closeMobileMenu}>
+                <Link to="/" className="logo" onClick={handleHomeClick}>
                     Al-<span>prom</span>
                 </Link>
 
@@ -39,9 +57,9 @@ const Header = () => {
                 </button>
 
                 <nav className={`nav ${mobileMenuOpen ? 'mobile-open' : ''}`}>
-                    <Link to="/" className="nav-link" onClick={closeMobileMenu}>Početna</Link>
+                    <Link to="/" className="nav-link" onClick={handleHomeClick}>Početna</Link>
                     <Link to="/modeli" className="nav-link" onClick={closeMobileMenu}>Modeli</Link>
-                    <a href={isHomePage ? "#kontakt" : "/#kontakt"} className="nav-link btn-contact" onClick={closeMobileMenu}>Kontakt</a>
+                    <Link to="/?contact=true" className="nav-link btn-contact" onClick={handleContactClick}>Kontakt</Link>
                 </nav>
             </div>
         </header>

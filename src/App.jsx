@@ -39,8 +39,8 @@ function App() {
               element={<ServicePage title="PVC Prozori" description="Vrhunska toplotna i zvučna izolacija uz minimalno održavanje." />}
             />
             <Route
-              path="/alu-stolarija"
-              element={<ServicePage title="ALU Stolarija" description="Moderan dizajn, izuzetna čvrstoća i trajnost." />}
+              path="/klizni-sistemi"
+              element={<ServicePage title="Klizni Sistemi" description="Maksimalna funkcionalnost i estetska elegancija za vaš prostor." />}
             />
             <Route
               path="/ulazna-vrata"

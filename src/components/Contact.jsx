@@ -9,6 +9,8 @@ import { useSearchParams } from 'react-router-dom';
 
 const Contact = () => {
     const [searchParams] = useSearchParams();
+    const [name, setName] = React.useState('');
+    const [phone, setPhone] = React.useState('');
     const [message, setMessage] = React.useState('');
 
     // Fix Leaflet default marker icon issue
@@ -23,15 +25,41 @@ const Contact = () => {
 
     useEffect(() => {
         const modelName = searchParams.get('model');
+        const shouldScroll = searchParams.get('contact');
+
         if (modelName) {
             setMessage(`Zanima me ponuda za model: ${modelName}`);
-            // Scroll to contact section if model is present
+        }
+
+        if (modelName || shouldScroll) {
+            // Scroll to contact section
             const contactSection = document.getElementById('kontakt');
             if (contactSection) {
-                contactSection.scrollIntoView({ behavior: 'smooth' });
+                // Use a small timeout to ensure the page has rendered if coming from another route
+                setTimeout(() => {
+                    contactSection.scrollIntoView({ behavior: 'smooth' });
+                }, 100);
             }
         }
     }, [searchParams]);
+
+    const handleNameChange = (e) => {
+        const value = e.target.value;
+        // Dozvoljavamo samo slova, razmake i naša specifična slova
+        let sanitizedValue = value.replace(/[^a-zA-Z\sčćžšđČĆŽŠĐ]/g, '');
+
+        // Title Case formatiranje (svaka reč počinje velikim slovom)
+        sanitizedValue = sanitizedValue.toLowerCase().replace(/(^\w|\s\w|^\p{L}|\s\p{L})/gu, (m) => m.toUpperCase());
+
+        setName(sanitizedValue);
+    };
+
+    const handlePhoneChange = (e) => {
+        const value = e.target.value;
+        // Dozvoljavamo samo brojeve i znak +
+        const sanitizedValue = value.replace(/[^0-9+]/g, '');
+        setPhone(sanitizedValue);
+    };
 
     const workshopPosition = [44.296872, 19.068228];
 
@@ -42,7 +70,6 @@ const Contact = () => {
         e.preventDefault();
         setIsSubmitting(true);
 
-        // ZAMENITE OVE VREDNOSTI SA VAŠIM IZ EMAILJS DASHBOARD-A
         const SERVICE_ID = 'service_vx7acjg';
         const TEMPLATE_ID = 'template_vxdv7lu';
         const PUBLIC_KEY = 'wTD6ilxwwdQo0TmDz';
@@ -51,6 +78,7 @@ const Contact = () => {
             .then((result) => {
                 alert('Poruka uspešno poslata!');
                 e.target.reset();
+                setName(''); // Resetujemo i lokalni state za ime
             }, (error) => {
                 alert('Došlo je do greške prilikom slanja poruke. Molimo pokušajte ponovo.');
                 console.log(error.text);
@@ -133,17 +161,34 @@ const Contact = () => {
 
                             <div className="form-group">
                                 <label htmlFor="user_name">Ime i Prezime</label>
-                                <input type="text" name="user_name" id="user_name" placeholder="Vaše ime i prezime" required />
+                                <input
+                                    type="text"
+                                    name="user_name"
+                                    id="user_name"
+                                    placeholder="Vaše ime i prezime"
+                                    required
+                                    maxLength="40"
+                                    value={name}
+                                    onChange={handleNameChange}
+                                />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="user_email">Email Adresa</label>
-                                <input type="email" name="user_email" id="user_email" placeholder="vas@email.com" required />
+                                <input type="email" name="user_email" id="user_email" placeholder="vas@email.com" required maxLength="50" />
                             </div>
 
                             <div className="form-group">
                                 <label htmlFor="user_phone">Broj Telefona</label>
-                                <input type="tel" name="user_phone" id="user_phone" placeholder="+387 65..." />
+                                <input
+                                    type="tel"
+                                    name="user_phone"
+                                    id="user_phone"
+                                    placeholder="+387 65..."
+                                    value={phone}
+                                    onChange={handlePhoneChange}
+                                    maxLength="40"
+                                />
                             </div>
 
                             <div className="form-group">
@@ -156,6 +201,7 @@ const Contact = () => {
                                     required
                                     value={message}
                                     onChange={(e) => setMessage(e.target.value)}
+                                    maxLength="500"
                                 ></textarea>
                             </div>
 

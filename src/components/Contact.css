@@ -2,6 +2,7 @@
     background-color: var(--secondary);
     color: white;
     padding: 5rem 0 2rem;
+    margin-top: 1rem;
 }
 
 .contact-grid {
